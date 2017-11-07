@@ -133,6 +133,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ITestDependency.cs" />
+    <Compile Include="Logic\ITestLogic.cs" />
+    <Compile Include="Logic\TestDependency.cs" />
+    <Compile Include="Logic\TestLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
