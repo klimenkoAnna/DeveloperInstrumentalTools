@@ -35,5 +35,8 @@ namespace WebApplication.API.Controllers
         public void Delete(int id)
         {
         }
+
+        private void DoNothing()
+        { }
     }
 }

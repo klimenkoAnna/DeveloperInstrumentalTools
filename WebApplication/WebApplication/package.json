@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "gulp": "3.9.1", 
-    "typescript": "2.7.0-dev.20171020",
+    "typescript": ">=2.5.0-dev",
     "tsc": "1.20150623.0",
     "gulp-typescript": "3.2.1",
     "@types/jquery": "3.2.1",
