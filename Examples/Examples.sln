@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.EFCore", "SQL\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication.EFCore", "SQL\WebApplication.EFCore\WebApplication.EFCore.csproj", "{809970C6-F20B-41BD-9840-413AA36E3319}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSSQL", "MSSQL", "{7B57C70C-A2F0-49ED-8E5A-867F334D7998}"
+ProjectSection(SolutionItems) = preProject
+	MSSQL\docker-compose.yml = MSSQL\docker-compose.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
