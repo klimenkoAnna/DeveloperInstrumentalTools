@@ -19,6 +19,8 @@ namespace RazorWebApplication.Services
         {
             using var response = await this.HttpClient.GetAsync("weatherforecast");
 
+            response.EnsureSuccessStatusCode();
+            
             var content = await response.Content.ReadAsStringAsync();
             
             return JsonSerializer.Deserialize<IEnumerable<WeatherForecast>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

@@ -11,6 +11,7 @@ namespace RazorWebApplication.Models
         public decimal TemperatureF { get; set; }
 
         public string Summary { get; set; }
+        
         public string TemperatureCText => FormatTemperature(this.TemperatureC, "C");
 
         public string TemperatureFText => FormatTemperature(this.TemperatureF, "F");
