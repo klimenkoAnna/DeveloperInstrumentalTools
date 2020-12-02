@@ -15,7 +15,7 @@
 
     });
 
-    document.getElementById("btnSend").addEventListener("click", function (e) {
+    $("btnSend").on("click", function (e) {
         let message = $("#input").val();
         hubConnection.invoke("Send", message);
     });
