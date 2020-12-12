@@ -7,13 +7,11 @@ namespace WebApplication.EFCore
     {
         public MappingProfile()
         {
-            this.CreateMap<WeatherEntity, WeatherForecast>()
+            CreateMap<ShopEntity, ShopSummary>()
                 .ForMember(
-                    dst => dst.Summary, 
-                    opt => opt.MapFrom(src => src.Summary.Code))
-                .ForMember(
-                    dst => dst.TemperatureC,
-                    opt => opt.MapFrom(src => src.Temperature));
+                    dst => dst.ShopCategory,
+                    opt => opt.MapFrom(src => src.Category.Category)
+                );
         }
     }
 }

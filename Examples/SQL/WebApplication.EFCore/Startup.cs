@@ -31,10 +31,12 @@ namespace WebApplication.EFCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IWeatherDataAccess, WeatherDataAccess>();
+            services.AddScoped<IShopDataAccess, ShopDataAccess>();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddDbContext<ExampleContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("ExampleDbContext")));
+            services.AddDbContext<ExampleContext>(
+                options => options.UseNpgsql("Host=postgres;Port=5432;Database=postgres;User ID=postgres;Password=root;")
+            );
+            //Configuration.GetConnectionString("ExampleDbContext")
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +54,12 @@ namespace WebApplication.EFCore
             //app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<ExampleContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }

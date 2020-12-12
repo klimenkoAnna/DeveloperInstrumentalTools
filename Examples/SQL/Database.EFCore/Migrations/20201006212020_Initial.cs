@@ -9,70 +9,62 @@ namespace Database.EFCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Summary",
+                name: "shop_category",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Code = table.Column<string>(nullable: true)
+                    Category = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Summary", x => x.Id);
+                    table.PrimaryKey("PK_shop_category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Weather",
+                name: "shop",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SummaryId = table.Column<int>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Temperature = table.Column<decimal>(nullable: false)
+                    CategoryId = table.Column<int>(nullable: true),
+                    Rating = table.Column<decimal>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    SiteLink = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weather", x => x.Id);
+                    table.PrimaryKey("PK_shop", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Weather_Summary_SummaryId",
-                        column: x => x.SummaryId,
-                        principalTable: "Summary",
+                        name: "FK_shop_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "shop_category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
+            
             migrationBuilder.InsertData(
-                table: "Summary",
-                columns: new[] { "Id", "Code" },
+                table: "shop_category",
+                columns: new[] { "Id", "Category" },
                 values: new object[,]
                 {
-                    { 1, "Freezing" },
-                    { 2, "Bracing" },
-                    { 3, "Chilly" },
-                    { 4, "Cool" },
-                    { 5, "Mild" },
-                    { 6, "Warm" },
-                    { 7, "Balmy" },
-                    { 8, "Hot" },
-                    { 9, "Sweltering" },
-                    { 10, "Scorching" }
+                    { 1, "Supermarket" },
+                    { 2, "Petrol station" },
+                    { 3, "Toy shop" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Weather",
-                columns: new[] { "Id", "Date", "SummaryId", "Temperature" },
+                table: "shop",
+                columns: new[] { "Id", "CategoryId", "Rating", "Address", "SiteLink" },
                 values: new object[,]
                 {
-                    { 3, new DateTime(2020, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, -10m },
-                    { 1, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, -1.3m },
-                    { 2, new DateTime(2020, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5.1m }
+                    { 1, 1, 4.2, "test address", "site.com" }
                 });
-
+            
             migrationBuilder.CreateIndex(
-                name: "IX_Weather_SummaryId",
-                table: "Weather",
-                column: "SummaryId");
+                name: "IX_shop_CategoryId",
+                table: "shop",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

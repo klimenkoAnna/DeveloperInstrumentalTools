@@ -1,7 +1,6 @@
 version: '3.7'
 
 services:
-
   postgres:
     container_name: 'examples.postgres'
     restart: always
@@ -18,7 +17,15 @@ services:
       - POSTGRES_MULTIPLE_DATABASES=exampledb
     networks:
       - internal
-
+  app:
+    container_name: 'examples.app'
+    build:
+      context: ../
+      dockerfile: app.dockerfile
+    ports:
+      - "5000:80"
+    networks:
+      - internal
 networks:
   internal:
     driver: bridge

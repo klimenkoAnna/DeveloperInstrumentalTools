@@ -8,20 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database.EFCore.Implementations
 {
-    public class WeatherDataAccess : IWeatherDataAccess
+    public class ShopDataAccess : IShopDataAccess
     {
         private ExampleContext ExampleContext { get; }
         
-        public WeatherDataAccess(ExampleContext exampleContext)
+        public ShopDataAccess(ExampleContext exampleContext)
         {
             ExampleContext = exampleContext;
         }
 
-        public async Task<IEnumerable<WeatherEntity>> GetAllAsync(CancellationToken ct = default)
+        public async Task<IEnumerable<ShopEntity>> GetAllAsync(CancellationToken ct = default)
         {
-            return await this.ExampleContext.Weathers
-                .Include(x => x.Summary)
-                .OrderBy(x => x.Date)
+            return await this.ExampleContext.Shops
+                .Include(x => x.Category)
+                .OrderBy(x => x.Rating)
                 .ToListAsync(ct);
         }
     }

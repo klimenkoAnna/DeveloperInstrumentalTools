@@ -7,8 +7,8 @@ namespace Database.EFCore
 {
     public partial class ExampleContext : DbContext
     {
-        public DbSet<SummaryEntity> Summaries { get; set; }
-        public DbSet<WeatherEntity> Weathers { get; set; }
+        public DbSet<ShopCategoryEntity> Summaries { get; set; }
+        public DbSet<ShopEntity> Shops { get; set; }
         
         public ExampleContext()
         {
@@ -31,56 +31,35 @@ namespace Database.EFCore
         {
             OnModelCreatingPartial(modelBuilder);
 
-            modelBuilder.Entity<WeatherEntity>(entity =>
+            modelBuilder.Entity<ShopEntity>(entity =>
             {
-                entity.ToTable("Weather");
+                entity.ToTable("shop");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).UseIdentityColumn();
-                entity.HasOne(d => d.Summary);
+                entity.HasOne(d => d.Category);
             });
 
-            modelBuilder.Entity<SummaryEntity>(entity =>
+            modelBuilder.Entity<ShopCategoryEntity>(entity =>
             {
-                entity.ToTable("Summary");
+                entity.ToTable("shop_category");
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).UseIdentityColumn();
             });
             
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 1, Code = "Freezing" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 2, Code = "Bracing" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 3, Code = "Chilly" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 4, Code = "Cool" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 5, Code = "Mild" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 6, Code = "Warm" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 7, Code = "Balmy" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 8, Code = "Hot" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 9, Code = "Sweltering" });
-            modelBuilder.Entity<SummaryEntity>().HasData(new SummaryEntity { Id = 10, Code = "Scorching" });
+            modelBuilder.Entity<ShopCategoryEntity>().HasData(new ShopCategoryEntity { Id = 1, Category = "Supermarket" });
+            modelBuilder.Entity<ShopCategoryEntity>().HasData(new ShopCategoryEntity { Id = 2, Category = "Petrol station" });
+            modelBuilder.Entity<ShopCategoryEntity>().HasData(new ShopCategoryEntity { Id = 3, Category = "Toy shop" });
+         
             
-            modelBuilder.Entity<WeatherEntity>().HasData(new
+            modelBuilder.Entity<ShopEntity>().HasData(new
             {
-                Id = 1, 
-                Date = new DateTime(2020, 1, 1),
-                Temperature = -1.3m,
-                SummaryId = 3
+                Id = 1,
+                ShopCategoryEntity = 1,
+                Rating = 4.2,
+                Address = "test address",
+                SiteLink = "site.com"
             });
-            
-            modelBuilder.Entity<WeatherEntity>().HasData(new
-            {
-                Id = 2, 
-                Date = new DateTime(2020, 1, 2),
-                Temperature = 5.1m,
-                SummaryId = 5
-            });
-            
-            modelBuilder.Entity<WeatherEntity>().HasData(new
-            {
-                Id = 3, 
-                Date = new DateTime(2020, 1, 3),
-                Temperature = -10m,
-                SummaryId = 1
-            });
-            
+
             //modelBuilder.Entity<WeatherEntity>().OwnsOne(p => p.Summary).HasData(new { Date = new DateTime(2020, 1, 1), Temperature = -1, Code = "Chill" });
         }
 
