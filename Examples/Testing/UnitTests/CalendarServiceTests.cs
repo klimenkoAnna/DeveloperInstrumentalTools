@@ -6,41 +6,56 @@ using UnitTestsTarget;
 
 namespace UnitTests
 {
-    public class Tests
+    public class CalendarServiceTest
     {
-        [Test]
-        public void GetWorkingToday_RealLogic_Friday_ReturnsMonday()
-        {
-            // Arrange
-            var today = new DateTime(2020, 10, 02);
+        private CalendarService _calendarService;
 
-            var service = new CalendarService(new DayShiftService(new DayOfWeekService()));
-            
-            // Act
-            var result = service.GetWorkingTomorrow(today);
-            
-            // Assert
-            result.Should().Be(new DateTime(2020, 10, 05));
+        private static object[] _dateCasesToday =
+        {
+            new object[] {TestUtils.GetDate("06/11/2020"), TestUtils.GetDate("06/11/2020")},
+            new object[] {TestUtils.GetDate("08/11/2020"), TestUtils.GetDate("09/11/2020")},
+        };
+
+        private static object[] _dateCasesTomorrow =
+        {
+            new object[] {TestUtils.GetDate("06/11/2020"), TestUtils.GetDate("09/11/2020")},
+            new object[] {TestUtils.GetDate("07/11/2020"), TestUtils.GetDate("09/11/2020")},
+            new object[] {TestUtils.GetDate("09/11/2020"), TestUtils.GetDate("10/11/2020")},
+        };
+
+        private static object[] _dateCasesYesterday =
+        {
+            new object[] {TestUtils.GetDate("06/11/2020"), TestUtils.GetDate("05/11/2020")},
+            new object[] {TestUtils.GetDate("07/11/2020"), TestUtils.GetDate("06/11/2020")},
+            new object[] {TestUtils.GetDate("09/11/2020"), TestUtils.GetDate("06/11/2020")},
+        };
+
+        [SetUp]
+        public void Setup()
+        {
+            _calendarService = new CalendarService(new DayShiftService(new DayOfWeekService()));
         }
-        
-        [Test]
-        public void GetWorkingToday_AllDatesWorking_ReturnsTomorrow()
+
+        [Test, TestCaseSource(nameof(_dateCasesToday))]
+        public void TestWorkingToday(DateTime date, DateTime new_date)
         {
-            // Arrange
-            var today = new DateTime(2020, 10, 02);
+            //Assert.AreEqual(new_date, _calendarService.GetWorkingToday(date));
+            new_date.Should().Be(_calendarService.GetWorkingToday(date));
 
-            var dayOfWeekService = new Mock<IDayOfWeekService>();
-            dayOfWeekService
-                .Setup(x => x.IsWeekend(It.IsAny<DateTime>()))
-                .Returns(false);
+        }
 
-            var service = new CalendarService(new DayShiftService(dayOfWeekService.Object));
-            
-            // Act
-            var result = service.GetWorkingTomorrow(today);
-            
-            // Assert
-            result.Should().Be(new DateTime(2020, 10, 03));
+        [Test, TestCaseSource(nameof(_dateCasesTomorrow))]
+        public void TestWorkingTomorrow(DateTime date, DateTime new_date)
+        {
+           // Assert.AreEqual(new_date, _calendarService.GetWorkingTomorrow(date));
+           new_date.Should().Be(_calendarService.GetWorkingTomorrow(date));
+        }
+
+        [Test, TestCaseSource(nameof(_dateCasesYesterday))]
+        public void TestWorkingYesterday(DateTime date, DateTime new_date)
+        {
+            //Assert.AreEqual(new_date, _calendarService.GetWorkingYesterday(date));
+            new_date.Should().Be(_calendarService.GetWorkingYesterday(date));
         }
     }
 }
