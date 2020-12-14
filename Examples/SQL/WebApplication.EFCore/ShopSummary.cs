@@ -4,8 +4,6 @@ namespace WebApplication.EFCore
 {
     public class ShopSummary
     {
-        public DateTime Date { get; set; }
-
         public decimal Rating { get; set; }
 
         public String Address { get; set; }

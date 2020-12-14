@@ -50,6 +50,7 @@ namespace WebApplication.EFCore
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+            //app.setPo
 
             //app.UseAuthorization();
 

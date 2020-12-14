@@ -18,6 +18,11 @@ namespace WebApplication.EFCore
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(builder =>
+                    {
+                        builder.UseStartup<Startup>();
+                        builder.UseUrls("http://0.0.0.0:5000");
+                    }
+                );
     }
 }
