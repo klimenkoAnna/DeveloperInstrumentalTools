@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
+using FluentAssertions;
 using NUnit.Framework;
 using UnitTestsTarget;
 
-namespace UnitTestsKlimenko
+namespace UnitTests
 {
     public class Tests
     {
@@ -33,7 +34,9 @@ namespace UnitTestsKlimenko
         [Test, TestCaseSource(nameof(_dateTimeCases))]
         public void TestDayOfWeek(DateTime date, bool isWeekend)
         {
-            Assert.AreEqual(isWeekend, _dayOfWeekService.IsWeekend(date));
+            //Assert.AreEqual(isWeekend, _dayOfWeekService.IsWeekend(date));
+            isWeekend.Should().Be(_dayOfWeekService.IsWeekend(date));
+
         }
     }
 }

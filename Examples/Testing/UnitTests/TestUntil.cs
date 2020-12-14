@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace UnitTestsKlimenko
+namespace UnitTests
 {
     public static class TestUtils
     {

@@ -1,8 +1,9 @@
 ﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using UnitTestsTarget;
 
-namespace UnitTestsKlimenko
+namespace UnitTests
 {
     public class DayShiftServiceTest
     {
@@ -39,13 +40,17 @@ namespace UnitTestsKlimenko
         [Test, TestCaseSource(nameof(_dateCasesBusiness))]
         public void GetShiftBusinessDayTest(DateTime date, int shift, DateTime new_date)
         {
-            Assert.AreEqual(new_date, _dayShiftService.GetShiftBusinessDay(date, shift));
+           // Assert.AreEqual(new_date, _dayShiftService.GetShiftBusinessDay(date, shift));
+            new_date.Should().Be(_dayShiftService.GetShiftBusinessDay(date, shift));
+
         }
         
         [Test, TestCaseSource(nameof(_dateCasesHoliday))]
         public void ShiftWhileHolidayTest(int shift, DateTime date, DateTime newDate)
         {
-            Assert.AreEqual(newDate, _dayShiftService.ShiftWhileHoliday(shift, date));
+            //Assert.AreEqual(newDate, _dayShiftService.ShiftWhileHoliday(shift, date));
+            newDate.Should().Be(_dayShiftService.ShiftWhileHoliday(shift, date));
+
         }
     }
 }
