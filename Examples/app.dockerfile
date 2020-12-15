@@ -2,5 +2,5 @@
 COPY . /app
 WORKDIR /app
 RUN dotnet restore
-RUN dotnet publish -c Release -o build
+RUN dotnet publish -c Release -o build "SQL/WebApplication.EFCore/WebApplication.EFCore.csproj"
 ENTRYPOINT ["dotnet", "build/WebApplication.EFCore.dll"]

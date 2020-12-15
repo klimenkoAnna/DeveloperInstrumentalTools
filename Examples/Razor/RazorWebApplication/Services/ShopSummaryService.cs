@@ -6,24 +6,24 @@ using RazorWebApplication.Models;
 
 namespace RazorWebApplication.Services
 {
-    public class WeatherForecastService : IWeatherForecastService
+    public class ShopSummaryService : IShopSummaryService
     {
         private HttpClient HttpClient { get; }
         
-        public WeatherForecastService(HttpClient httpClient)
+        public ShopSummaryService(HttpClient httpClient)
         {
             HttpClient = httpClient;
         }
 
-        public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts()
+        public async Task<IEnumerable<ShopSummary>> GetShopSummary()
         {
-            using var response = await this.HttpClient.GetAsync("weatherforecast");
+            using var response = await this.HttpClient.GetAsync("shops");
 
             response.EnsureSuccessStatusCode();
             
             var content = await response.Content.ReadAsStringAsync();
             
-            return JsonSerializer.Deserialize<IEnumerable<WeatherForecast>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return JsonSerializer.Deserialize<IEnumerable<ShopSummary>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
     }
 }

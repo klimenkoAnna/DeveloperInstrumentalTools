@@ -1,4 +1,4 @@
-@model IEnumerable<WeatherForecast>
+@model IEnumerable<ShopSummary>
 
 @{
     ViewBag.Title = "Weather forecast";
@@ -10,20 +10,20 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      Timestamp
+      Shop in
     </div>
     <div class="col">
-      Temperature
+      Rating
     </div>
   </div>
   @foreach (var forecast in this.Model)
   {
     <div class="row">
       <div class="col">
-        @Html.ActionLink(forecast.TimeStamp.ToString(), "Details", forecast)
+        @Html.ActionLink(forecast.Address.ToString(), "Details", forecast)
       </div>
       <div class="col">
-        @forecast.TemperatureCText
+        @forecast.Rating
       </div>
     </div>
   }

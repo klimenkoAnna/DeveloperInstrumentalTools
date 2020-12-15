@@ -1,0 +1,26 @@
+@model ShopSummary
+
+@{
+    ViewBag.Title = $"Shop summary";
+    Layout = "_Layout";
+}
+
+<h3>Shops on @this.Model.Address</h3>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            Rating @this.Model.Rating
+        </div>
+        <div class="col">
+            Site @this.Model.SiteLink
+        </div>
+        <div class="col">
+            Category @this.Model.ShopCategory
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @Html.ActionLink("Back to list", "Index")
+        </div>
+    </div>
+</div>
